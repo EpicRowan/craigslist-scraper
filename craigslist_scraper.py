@@ -19,7 +19,7 @@ class CraigslistScraper(object):
 
 	def load_craigslist_url(self):
 		self.driver.get(self.url)
-		self.delay = 4
+		self.delay = 2
 		try:
 			wait=WebDriverWait(self.driver, self.delay)
 			wait.until(EC.presence_of_element_located((By.ID, "searchform")))
@@ -35,8 +35,14 @@ class CraigslistScraper(object):
 			post_title_list.append(post.text)
 
 	def extract_post_urls(self):
-		pass
+		url_list = []
+		html_page = urllib.requrst.urlopen(self.url)
+		soup = BeautifulSoup(html_page, "lxml")
+		for link in soup.findAll("a", {"class": "result-title hdrlink"})
+			url_list.append(link["href"])
+		return url_list
 
+		
 postal="94501"
 max_price="1000"
 radius="5"
@@ -44,6 +50,6 @@ radius="5"
 scraper = CraigslistScraper(postal,max_price,radius)
 scraper.load_craigslist_url()
 scraper.extract_post_titles()
-# scraper.extract_post_urls()
+scraper.extract_post_urls()
 # scraper.quit()
 
