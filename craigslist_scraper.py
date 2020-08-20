@@ -14,9 +14,20 @@ class CraigslistScraper(object):
 		self.radius = radius
 
 		self.url = f"https://sfbay.craigslist.org/search/sss?search_distance={radius}&postal={postal}&max_price={max_price}"
+		gecko = "/home/rowan/geckodriver"
+		self.driver = webdriver.Firefox(executable_path =gecko)
 
-	def test(self):
-		print(self.url)
+	def load_craigslist_url(self):
+		self.driver.get(self.url)
+		self.delay = 3
+		try:
+			wait=WebDriverWait(self.driver, self.delay)
+			wait.until(EC.presence_of_element_location(By.ID, "searchform"))
+			print("Ready")
+		except TimeoutException:
+			print("Loading took too long")
+
+
 
 postal="94501"
 max_price="1000"
@@ -24,8 +35,7 @@ radius="5"
 
 scraper = CraigslistScraper(postal,max_price,radius)
 scraper.load_craigslist_url()
-scraper.extract_post_titles()
-scraper.extract_post_urls()
-scraper.quit()
+# scraper.extract_post_titles()
+# scraper.extract_post_urls()
+# scraper.quit()
 
-scraper.test()
