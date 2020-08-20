@@ -19,15 +19,18 @@ class CraigslistScraper(object):
 
 	def load_craigslist_url(self):
 		self.driver.get(self.url)
-		self.delay = 3
+		self.delay = 2
 		try:
 			wait=WebDriverWait(self.driver, self.delay)
-			wait.until(EC.presence_of_element_location(By.ID, "searchform"))
+			wait.until(EC.presence_of_element_located(By.ID, "searchform"))
 			print("Ready")
 		except TimeoutException:
 			print("Loading took too long")
 
-
+	def extract_post_titles(self):
+		pass
+	def extract_post_urls(self):
+		pass
 
 postal="94501"
 max_price="1000"
