@@ -36,20 +36,22 @@ class CraigslistScraper(object):
 
 	def extract_post_urls(self):
 		url_list = []
-		html_page = urllib.requrst.urlopen(self.url)
+		html_page = urllib.request.urlopen(self.url)
 		soup = BeautifulSoup(html_page, "lxml")
-		for link in soup.findAll("a", {"class": "result-title hdrlink"})
+		for link in soup.findAll("a", {"class": "result-title hdrlnk"}):
 			url_list.append(link["href"])
 		return url_list
 
-		
+	def quit(self):
+		self.driver.close()
+
 postal="94501"
 max_price="1000"
 radius="5"
 
 scraper = CraigslistScraper(postal,max_price,radius)
 scraper.load_craigslist_url()
-scraper.extract_post_titles()
+# scraper.extract_post_titles()
 scraper.extract_post_urls()
-# scraper.quit()
+scraper.quit()
 
