@@ -51,7 +51,7 @@ radius="5"
 
 scraper = CraigslistScraper(postal,max_price,radius)
 scraper.load_craigslist_url()
-# scraper.extract_post_titles()
+scraper.extract_post_titles()
 scraper.extract_post_urls()
 scraper.quit()
 
