@@ -4,6 +4,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
+import smtplib
+
 from bs4 import BeautifulSoup
 import urllib.request
 
@@ -45,6 +47,25 @@ class CraigslistScraper(object):
 	def quit(self):
 		self.driver.close()
 
+	# def send_email():
+	# 	server = smtplib.SMTP('smtp.gmail.com', 587)
+	# 	server.ehlo()
+	# 	server.starttls()
+	# 	server.ehlo()
+
+	# 	server.login({config.email}, {config.password})
+
+	# 	subject = "COVID news"
+	# 	body = ""
+	# 	msg = f"Subject: {subject} \n\n {body}"
+
+	# 	server.sendmail(
+	# 			{config.email},
+	# 			{config.email},
+	# 			msg
+	# 		)
+	# 	server.quit()
+
 postal="94501"
 max_price="1000"
 radius="5"
@@ -53,5 +74,6 @@ scraper = CraigslistScraper(postal,max_price,radius)
 scraper.load_craigslist_url()
 scraper.extract_post_titles()
 scraper.extract_post_urls()
+# scraper.send_email()
 scraper.quit()
 
